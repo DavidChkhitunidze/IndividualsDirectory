@@ -1,0 +1,24 @@
+﻿@using IndividualsDirectory.Models.Create
+@using HtmlHelpers.BeginCollectionItemCore
+
+@model CreatePhoneNumberViewModel
+
+<div class="form-group row">
+    @using (Html.BeginCollectionItem(nameof(CreateIndividualViewModel.PhoneNumbers)))
+    {
+        <label class="col-lg-1 col-form-label-sm form-control-label">Number</label>
+        <div class="col-lg-4">
+            <input asp-for="Number" type="text" class="form-control form-control-sm" />
+            <span asp-validation-for="Number" class="text-danger"></span>
+        </div>
+        <label class="col-lg-1 col-form-label-sm form-control-label">Type</label>
+        <div class="col-lg-4">
+            <select asp-for="PhoneNumberType" asp-items="Html.GetEnumSelectList<PhoneNumberType>()" class="form-control form-control-sm">
+                <option value="">Choose...</option>
+            </select>
+            <span asp-validation-for="PhoneNumberType" class="text-danger"></span>
+        </div>
+
+        <button type="button" class="col-lg-2 btn btn-outline-secondary btn-sm" onclick="$(this).parent().remove();">Delete</button>
+    }
+</div>

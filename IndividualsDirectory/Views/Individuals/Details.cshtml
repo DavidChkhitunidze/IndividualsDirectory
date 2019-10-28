@@ -1,0 +1,104 @@
+﻿@model Response<GetIndividualViewModel>
+
+<div class="row my-2">
+    @if (!Model.Success)
+    {
+        <div class="col-lg-12">
+            <div style="text-align: center"><p>@string.Join("\r\n", Model.ErrorMessages)</p></div>
+        </div>
+    }
+    else
+    {
+        <div class="col-lg-8 order-lg-2">
+            <div class="tab-pane active" id="profile">
+                <h5 class="mb-3">User Profile</h5>
+                <div class="row">
+                    <label class="col-lg-3"><strong>First Name: </strong></label>
+                    <div class="col-lg-9">
+                        <p>@Html.DisplayFor(model => model.Model.FirstName)</p>
+                    </div>
+                    <label class="col-lg-3"><strong>Last Name: </strong></label>
+                    <div class="col-lg-9">
+                        <p>@Html.DisplayFor(model => model.Model.LastName)</p>
+                    </div>
+                    <label class="col-lg-3"><strong>Gender: </strong></label>
+                    <div class="col-lg-9">
+                        <p>@Html.DisplayFor(model => model.Model.Gender)</p>
+                    </div>
+                    <label class="col-lg-3"><strong>Personal Number: </strong></label>
+                    <div class="col-lg-9">
+                        <p>@Html.DisplayFor(model => model.Model.PersonalNumber)</p>
+                    </div>
+                    <label class="col-lg-3"><strong>Birth Date: </strong></label>
+                    <div class="col-lg-9">
+                        <p>@Html.DisplayFor(model => model.Model.BirthDate)</p>
+                    </div>
+                    <label class="col-lg-3"><strong>City: </strong></label>
+                    <div class="col-lg-9">
+                        <p>@Html.DisplayFor(model => model.Model.City)</p>
+                    </div>
+                    <div class="col-md-12">
+                        @if (!Model.Model.RelatedIndividuals.Any())
+                        {
+                            <h5 class="mt-2">No Related Individuals</h5>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2">Related Individuals</h5>
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>
+                                            Relation Type
+                                        </th>
+                                        <th>
+                                            First Name
+                                        </th>
+                                        <th>
+                                            Last Name
+                                        </th>
+                                        <th>
+                                            Personal Number
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Model.RelatedIndividuals)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RelatedIndividualType)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RelatedTo.FirstName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RelatedTo.LastName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RelatedTo.PersonalNumber)
+                                            </td>
+                                            <td>
+                                                <a asp-action="Details" asp-route-id="@item.RelatedTo.Id" class="btn btn-outline-secondary btn-sm">Details</a>
+                                                <a asp-action="Edit" asp-route-id="@item.RelatedTo.Id" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                                <a asp-action="Delete" asp-route-id="@item.RelatedTo.Id" class="btn btn-outline-secondary btn-sm">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back to list</a>
+        </div>
+        <div class="col-lg-4 order-lg-1 text-center">
+            <img src="@Url.Content($"/assets/img/{Model.Model.ImageUrl}")" class="img-thumbnail" alt="Avatar">
+            <h6 class="mt-2">Profile Picture</h6>
+            <a asp-action="Edit" asp-route-id="@Model.Model.Id" class="btn btn-outline-secondary btn-sm">Edit Profile</a>
+            <a asp-action="Delete" asp-route-id="@Model.Model.Id" class="btn btn-outline-secondary btn-sm">Delete Profile</a>
+        </div>
+    }
+</div>
