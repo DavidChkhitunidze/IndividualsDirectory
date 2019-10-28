@@ -12,9 +12,6 @@ SDK - Microsoft.NETCore, ASP.NET Core 2.2, MVC, EnfityFramework.Core, FluentVali
 5) Build "IndividualsDirectory" project.
 6) Enjoy.
 
-P.S.
-Sorry for the delay, it's my fault, i could not find enough time to finish the application, but in my opinion the main idea is clear.
-
 Respectfully
 
 David Chkhitunidze
